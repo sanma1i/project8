@@ -1,0 +1,19 @@
+{
+  "name": "project8",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-validator": "^6.1.1",
+    "pug": "^2.0.4",
+    "sequelize": "^5.15.1",
+    "sqlite3": "^4.1.0"
+  }
+}
