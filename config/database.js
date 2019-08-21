@@ -1,4 +1,4 @@
-const Sequlizer = require('sequelize');
+const Sequelize = require('sequelize');
 module.export = new Sequelize({
     host: 'localhost',
     dialect: 'sqlite',

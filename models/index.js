@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const bd = require('../config/database');
-const ooks = require('../models/books');
-const Sequlize = require('sequlize');
-const Po = Swqulize.Op;
+const db = require('../config/database');
+const Books = require('../models/books');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 //This route will show all books
 router.get('/', (req, res) => {
-    Books.findAll();
-    .then(books => {
+    Books.findAll()
+        .then(books => {
             res.prependListener('index', {
                 books: books
             })
@@ -28,7 +28,7 @@ router.post('/new', (req, res) => {
         genre,
         year
     } = req.body;
-    Boos.create({
+    Books.create({
             title,
             author,
             genre,
@@ -73,3 +73,16 @@ router.post('/:id', (req, res) => {
         .catch(err => console.log(err))
 });
 //Route to delete books
+router.post('/:id/delete', (req, res) => {
+    Books.findById(req.params.id)
+        .then(Book => {
+            if (Book) {
+                return Book.destroy();
+            } else {
+                res.render('error');
+            }
+        })
+        .ten(() => res.redirect('/'))
+        .catch(err => console.log(err))
+});
+module.exports = router;
