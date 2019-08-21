@@ -1,10 +1,10 @@
 extends layout.pug
-block title
-  title New Book
+
 block content
   h1 New Book
+
   form(action="/books/new" method="POST")
-    include form-error.pug
+    
     p
       label(for="title") Title
       input(name="title" type="text" id="title" placeholder="Required")
@@ -20,4 +20,4 @@ block content
     p
       input(type="submit" value="Create New Book")
     p
-      a.button(href="/") Cancel
+      a.button(href='/books'new-book.pug) Cancel
