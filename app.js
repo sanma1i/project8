@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
-const open = require('open');
+//const open = require('open');
 
-app.use(expresss.json());
+app.use(express.json());
 app.use(express.urlencoded({
     extended: false
 }));
@@ -14,9 +14,6 @@ app.set('view engine', 'pug');
 
 //Redirects browser to the /books route
 app.get('/', (res) => res.redirect('/books'));
-//Books route
-//app.use('/index', require('./routes/index'));
-
 
 //Logs 404 error to console when user navigates to non-existing route
 app.use((req, res) => {
@@ -36,4 +33,4 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, console.log(`The application is running on http://localhost:${PORT}`));
 //Opens application in users default browser
-open(`http://localhost:${PORT}`);
+//open(`http://localhost:${PORT}`);
