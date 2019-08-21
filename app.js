@@ -13,7 +13,7 @@ app.use('/books', require('./routes/books'));
 app.set('view engine', 'pug');
 
 //Redirects browser to the /books route
-app.get('/', (res) => res.redirect('/books'));
+app.get('/', (req, res) => res.redirect('/books'));
 
 //Logs 404 error to console when user navigates to non-existing route
 app.use((req, res) => {
