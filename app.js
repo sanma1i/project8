@@ -6,7 +6,7 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: false
 }));
-app.use.apply('/static', express.static('public'));
+app.use('/static', express.static('public'));
 app.use('/books', require('./routes/books'));
 
 //Setting HTML to view engine  to use pug

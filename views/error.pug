@@ -1,10 +1,10 @@
 extends layout
 
 block title
-title Server Error
-block content
-  h1 Server Error
-  p Sorry! There was an unexpected error on the server.
-  br
-  p
-    a.button(href="/") Home
+.error
+h1= error.status
+h2= error.message
+br
+a.button.error-button(href="/") HOME
+br
+pre= error.stack
