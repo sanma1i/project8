@@ -2,48 +2,27 @@ const express = require('express');
 const router = express.Router();
 const Books = require('../models/Books');
 const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
-
-// let search = '';
-// let perPage = 5;
+const sequelize = new Sequelize({
+    dialect: 'sqlite',
+    storage: "library.db"
+})
+//const Op = Sequelize.Op;
+(async () => {
+    try {
+        await sequelize.authenticate();
+        console.log('Connection to the database successful!');
+    } catch (error) {
+        console.error('Error connecting to the database: ', error);
+    }
+})();
 
 //This route will show all books
 router.get('/', (req, res) => {
-    // if (req.query.page == null) search = '';
-    // if (req.query.search) {
-    //     search = req.query.search;
-    //     search = search.toLowerCase();
-    // }
-    // let match = {
-    //     [Op.like]: `%${search}%`
-    // };
     Books.findAll()
-        //     where: {
-        //         [Op.or]: [{
-        //                 title: match
-        //             },
-        //             {
-        //                 author: match
-        //             },
-        //             {
-        //                 genre: match
-        //             },
-        //             {
-        //                 year: match
-        //             },
-        //         ]
-        //     },
-        //     order: [
-        //         ['title', 'ASC']
-        //     ],
-        //     limit: perPage,
-        //     offset: req.query.page ? Number(req.query.page - 1) * perPage : 0
-        // })
         .then(books => {
             res.render('index', {
                 books: books
             });
-
         })
         .catch(err =>
             console.log(err))
@@ -80,17 +59,8 @@ router.post('/new', (req, res) => {
         .catch(err => console.log(err))
 });
 
-// Renders form to display book details, update the book details, or delete the book.
-// router.get('/:id', (req, res) => {
-//     Books.findByPk(req.params.id)
-//         .then(book =>
-//             res.render('update-book', {
-//                 book
-//             }))
-//         .catch(err => {
-//             throw err;
-//         });
-// });
+
+
 router.get('/search', (req, res) => {
     const {
         term
@@ -99,17 +69,28 @@ router.get('/search', (req, res) => {
     Books.findAll({
             where: {
                 [Op.or]: [{
-                        title: match
+
+                        title: {
+                            [Op.like]: '%' + term + '%'
+                        }
                     },
                     {
-                        author: match
+                        author: {
+                            [Op.like]: '%' + term + '%'
+                        }
                     },
                     {
-                        genre: match
+                        genre: {
+                            [Op.like]: '%' + term + '%'
+                        }
                     },
                     {
-                        year: match
-                    },
+                        year: {
+                            [Op.like]: '%' + term + '%'
+                        }
+                    }
+
+
                 ]
             }
         })
@@ -122,7 +103,7 @@ router.get('/search', (req, res) => {
         .catch(err => console.log(err));
 });
 router.post('/:id/delete', (req, res) => {
-    Books.findById(req.params.id)
+    Books.findByPk(req.params.id)
         .then(Book => {
             if (Book) {
                 return Book.destroy();
@@ -136,7 +117,7 @@ router.post('/:id/delete', (req, res) => {
 
 // Updates the book details if form data is sent by the user.
 router.get('/:id', (req, res) => {
-    Books.findById(req.params.id)
+    Books.findByPk(req.params.id)
         .then(book => {
             res.render('update-book', {
                 book
@@ -145,7 +126,7 @@ router.get('/:id', (req, res) => {
         .catch(err => console.log(err))
 });
 router.post('/:id', (req, res) => {
-    Books.findById(req.params.id)
+    Books.findByPk(req.params.id)
         .then(Book => {
             if (Book) {
                 return Book.update(req.body);
@@ -172,37 +153,3 @@ router.post('/:id', (req, res) => {
 
 
 module.exports = router;
-//             return book.update(req.body);
-//         })
-//         .then(() => res.redirect('/'))
-//         .catch(err => {
-//             let book = Books.build(req.body);
-//             book.id = req.params.id;
-//             // If title and/or author form fields are empty, form will not submit and page shows friendly error message.
-//             if (err.name === 'SequelizeValidationError') {
-//                 res.render('update-book', {
-//                     book,
-//                     errors: err.errors
-//                 });
-//             } else {
-//                 throw err;
-//             }
-//         });
-// });
-
-// Deletes a book from the database.
-// router.post('/:id/delete', (req, res) => {
-//     Books.findByPk(req.params.id)
-//         .then(book => {
-//             return book.destroy();
-//         })
-//         .then(() => {
-//             search = '';
-//             res.redirect('/');
-//         })
-//         .catch(err => {
-//             throw err;
-//         });
-// });
-
-// module.exports = router;

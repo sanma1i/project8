@@ -1,13 +1,14 @@
 const express = require('express');
 const app = express();
-//const open = require('open');
+//const db = require('./config/database');
+
 
 app.use(express.json());
 app.use(express.urlencoded({
     extended: false
 }));
 app.use('/static', express.static('public'));
-app.use('/books', require('./routes/books'));
+app.use('/books', require('./routes/booksRoutes'));
 
 //Setting HTML to view engine  to use pug
 app.set('view engine', 'pug');
@@ -32,5 +33,3 @@ app.use((err, req, res, next) => {
 //Localhost:3000
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, console.log(`The application is running on http://localhost:${PORT}`));
-//Opens application in users default browser
-//open(`http://localhost:${PORT}`);
