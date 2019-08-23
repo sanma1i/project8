@@ -14,8 +14,11 @@ router.get('/', (req, res) => {
         .catch(err => console.log(err))
 });
 
+
+router.get('/new', (req, res) => res.render('new-book'));
+
 /* POST create book. */
-router.post('/books/new', (req, res, next) => {
+router.post('/new', (req, res, next) => {
     Books.create({
             title: req.body.title,
             author: req.body.author,
@@ -24,7 +27,7 @@ router.post('/books/new', (req, res, next) => {
         })
 
         .then(book => {
-            res.redirect("/books/");
+            res.redirect("/books");
         })
         .catch(error => {
             if (error.name === "SequelizeValidationError") {
@@ -46,7 +49,7 @@ router.post('/books/new', (req, res, next) => {
 
 
 
-router.get("/books/:id", (req, res, next) => {
+router.get("/:id", (req, res, next) => {
     Books.findByPk(req.params.id)
         .then(book => {
             if (book) {
@@ -69,7 +72,7 @@ router.get("/books/:id", (req, res, next) => {
 
 
 /* POST update book. */
-router.post("/books/:id", (req, res, next) => {
+router.post("/:id", (req, res, next) => {
     Books.findByPk(req.params.id)
         .then(function (book) {
             if (book) {
@@ -104,7 +107,7 @@ router.post("/books/:id", (req, res, next) => {
 
 
 /* DELETE individual book. */
-router.post("/books/:id/delete", (req, res, next) => {
+router.post("/:id/delete", (req, res, next) => {
     Books.findByPk(req.params.id)
         .then(book => {
             if (book) {
