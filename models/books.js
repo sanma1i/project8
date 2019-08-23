@@ -1,44 +1,29 @@
-'use strict';
-module.export = (sequelize, DataTypes) => {
-    const Books = sequelize.define('Book', {
-        title: {
-            type: DataTypes.STRING,
-            validate: {
-                notEmpty: {
-                    msg: "Title is required"
-                }
-            }
-        },
-        author: {
-            type: DataTypes.STRING,
-            validate: {
-                notEmpty: {
-                    msg: "Author is required"
-                }
-            }
-        },
-        genre: DataTypes.STRING,
-        year: {
-            type: DataTypes.INTEGER,
-        }
+const Sequelize = require('sequelize');
+const db = require('../config/config');
 
-    });
-    return Books;
-};
-// "use strict";
-// module.exports = (sequelize, DataTypes) => {
-//     const Books = sequelize.define("Book", {
-//         title: {
-//             type: DataTypes.STRING,
-//             validate: {
-//                 notEmpty: true
-//             }
-//         },
-//         author: {
-//             type: DataTypes.STRING
-//         },
-//         genre: DataTypes.STRING,
-//         year: DataTypes.INTEGER
-//     });
-//     return Books;
-// };
+const Books = db.define('book', {
+    title: {
+        type: Sequelize.STRING,
+        validate: {
+            notEmpty: {
+                msg: "Title is required"
+            }
+        }
+    },
+    author: {
+        type: Sequelize.STRING,
+        validate: {
+            notEmpty: {
+                msg: "Author is required"
+            }
+        }
+    },
+    genre: {
+        type: Sequelize.STRING
+    },
+    year: {
+        type: Sequelize.INTEGER
+    }
+});
+
+module.exports = Books;
