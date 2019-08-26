@@ -32,7 +32,7 @@ router.post('/new', (req, res, next) => {
         .catch(error => {
             if (error.name === "SequelizeValidationError") {
                 res.render("new-book", {
-                    book: Book.build,
+                    // book: Book.build,
                     errors: error.errors,
                     title: "New Book"
                 })
