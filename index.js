@@ -74,17 +74,6 @@ router.get('/books/search', (req, res, next) => {
 
 })
 
-
-// /* Create a new book form. */
-// router.get('/books/new', (req, res, next) => {
-//     res.render("new-book", {
-//         book: Book.build(),
-//         title: "New Book"
-//     });
-// });
-
-
-
 /* GET individual book. */
 router.get("/books/:id", (req, res, next) => {
     Book.findByPk(req.params.id)
@@ -122,12 +111,7 @@ router.post("/books/:id", (req, res, next) => {
                 id: req.params.id
             }
 
-            // .then(book => {
-            //   if(book) {
-            //     return book.update(req.body);
-            //   } else {
-            //     res.send(404);
-            //   }
+
         }).then(() => {
             res.redirect("/books/page/1");
         })
