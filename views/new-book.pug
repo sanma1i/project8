@@ -3,10 +3,10 @@ extends layout
 block content
     form(action='/books/new' method='POST', id='create-book')
         h1 New Book
-        if(error)
+        if(errors)
             h2
             ul.error
-                each error in error
+                each error in errors
                     li=error.message
         p
             label(for='title') Title

@@ -1,6 +1,6 @@
 const express = require('express'); // require express
 const router = express.Router(); // starts an express application
-const Books = require('../models/books'); // require the Book model
+const Books = require('../models/Books'); // require the Book model
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 

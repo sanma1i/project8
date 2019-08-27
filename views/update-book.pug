@@ -6,7 +6,7 @@ block content
         if(error)
             h2.error 
             ul.error
-                each error in error
+                each error in errors
                     li=error.message
         p
             label(for='title') Title
