@@ -60,6 +60,9 @@ router.get("/:id", (req, res, next) => {
                     genre: book.genre,
                     year: book.year
                 })
+            } else {
+                res.status(400);
+                res.render('book-not-found');
             }
         })
 
